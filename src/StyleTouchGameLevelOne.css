@@ -1,3 +1,10 @@
+.yellow-board {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: yellow;
+}
+
 .board {
   width: 100%;
   height: 100%;
@@ -5,3 +12,9 @@
   background-color: black;
 }
 
+.dot {
+  background: skyblue;
+  position: fixed;
+  border-radius: 50%;
+  /*transition: all 1s;*/
+}

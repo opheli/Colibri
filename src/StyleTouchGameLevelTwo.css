@@ -3,15 +3,22 @@
   height: 100%;
   position: fixed;
   background-color: gold;
+  z-index:2;
 }
 
 .board {
   border-radius: 50%;
-  width: 150%;
-  height: 150%;
+  width: 120%;
+  height: 120%;
   position: fixed;
   background-color: black;
-  top: -50%;
-  left: -50%;
+  top: -10%;
+  left: -10%;
 }
 
+.dot {
+  background: skyblue;
+  position: fixed;
+  border-radius: 50%;
+  z-index:1;
+}

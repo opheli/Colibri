@@ -1,29 +1,47 @@
-import React, { useCallback, useState } from 'react'
-import '../App.css'
+import React, { useCallback, useState, useEffect } from 'react'
+import '../StyleTouchGameLevelTwo.css'
 
 function TouchGameLevelTwo() {
 
   const [size, setSize] = useState(0)
   const [position, setPosition] = useState({ x: null, y: null })
+  const [mouseDown, setMouseDown] = useState(false)
 
-  const mouseClick = useCallback((event) => {
-    const newSize = size + 40
-    setSize(newSize)
-    setPosition({ x: event.clientX - newSize / 2, y: event.clientY - newSize / 2 })
-  }, [setSize, setPosition, size])
+  const getDotBigger = useCallback(() => {
+    setSize(size + 80)
+  }, [setSize, size])
+
+  const initDot = useCallback((event) => {
+    if (position.x === null) {
+      setPosition({ x: event.clientX, y: event.clientY })
+      getDotBigger()
+      setMouseDown(true)
+    }
+  }, [position, setPosition, getDotBigger, setMouseDown])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (mouseDown) {
+        getDotBigger()
+      }
+    }, 300)
+    return () => clearInterval(interval)
+  }, [mouseDown, getDotBigger])
 
   return (
     <div className="yellow-board">
-      <div className="board" onClick={(event) => mouseClick(event)}>
-        <div style={{
-          background: 'skyblue',
-          position: 'fixed',
-          borderRadius: '50%',
-          top: position.y,
-          left: position.x,
-          width: size,
-          height: size,
-        }}>
+      <div className="board" onMouseDown={(e) => { initDot(e) }}
+      >
+        <div
+          className="dot"
+          onMouseDown={() => { setMouseDown(true) }}
+          onMouseUp={() => setMouseDown(false)}
+          style={{
+            top: position.y - size / 2,
+            left: position.x - size / 2,
+            width: size,
+            height: size,
+          }}>
         </div>
       </div>
     </div>

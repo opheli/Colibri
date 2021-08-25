@@ -3,7 +3,7 @@ import '../StyleTouchGame.css'
 
 function TouchGameLevelOne () {
 
-  const BLACK_BOARD_SIZE = 1700
+  const BLACK_BOARD_SIZE = 200
   const blackboard = useRef(null)
   const [size, setSize] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: null, y: null })
@@ -78,6 +78,7 @@ function TouchGameLevelOne () {
         </div>
       </div>
     </div>
+    
   )
 }
 

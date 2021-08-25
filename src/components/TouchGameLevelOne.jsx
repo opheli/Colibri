@@ -1,20 +1,27 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import Countdown from 'react-countdown'
 import '../StyleTouchGame.css'
 
-function TouchGameLevelOne () {
+const Completionist = () => <span>You are good to go!</span>;
 
-  const BLACK_BOARD_SIZE = 200
+function TouchGameLevelOne() {
+
+  const BLACK_BOARD_SIZE = (window.innerWidth * 1.15)
   const blackboard = useRef(null)
   const [size, setSize] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: null, y: null })
   const [dcrb, setDcrb] = useState({ x: null, y: null })
   const [mouseDown, setMouseDown] = useState(false)
+  const [gameOver, setGameOver] = useState(false)
 
   const endGame = () => {
     console.log('fin jeu', endGame)
-    //ici le button of Bharathi
+    setGameOver(true)
   }
 
+  function refreshPage() {
+    window.location.reload();
+  }
   const getDotBigger = useCallback(() => {
     const documentCenterX = window.innerWidth / 2
     const documentCenterY = window.innerHeight / 2
@@ -57,28 +64,35 @@ function TouchGameLevelOne () {
 
 
   return (
-    <div className="yellow-board"
-      onMouseUp={() => setMouseDown(false)}>
-      <div
-        className="black-board"
-        onMouseDown={initDot}
-
-        ref={blackboard}
-        style={{ width: BLACK_BOARD_SIZE }}
-      >
+    <>
+      <div className="yellow-board"
+        onMouseUp={() => setMouseDown(false)}>
         <div
-          className="dot"
-          onMouseDown={() => { setMouseDown(true) }}
-          style={{
-            top: mousePosition.y - size / 2,
-            left: mousePosition.x - size / 2,
-            width: size,
-            height: size,
-          }}>
+          className="black-board"
+          onMouseDown={initDot}
+
+          ref={blackboard}
+          style={{ width: BLACK_BOARD_SIZE }}
+        >
+          <div
+            className="dot"
+            onMouseDown={() => { setMouseDown(true) }}
+            style={{
+              top: mousePosition.y - size / 2,
+              left: mousePosition.x - size / 2,
+              width: size,
+              height: size,
+            }}>
+          </div>
         </div>
       </div>
-    </div>
-    
+      {gameOver ? <button type="button" onClick={refreshPage}>Reload</button> : null}
+      ({gameOver ?
+        <Countdown date={Date.now() + 10000} className="countdown" >
+          <Completionist />
+        </Countdown> : null}
+      ),
+    </>
   )
 }
 

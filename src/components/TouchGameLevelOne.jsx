@@ -1,12 +1,22 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Countdown from 'react-countdown'
+import {Button} from 'react-bootstrap'
 import '../StyleTouchGame.css'
 
-const Completionist = () => <span>You are good to go!</span>;
+// document.querySelector('Button').addEventListener('click', 
+//   e => console.log('réussit',e)
+// );
 
 function TouchGameLevelOne() {
 
-  const BLACK_BOARD_SIZE = (window.innerWidth * 1.15)
+  const reset = () => {
+    setSize(0)
+    setMousePosition({ x: null, y: null })
+    setMouseDown(false)
+    setGameOver(false)
+  }
+
+  const BLACK_BOARD_SIZE = (window.innerWidth * 0.40)
   const blackboard = useRef(null)
   const [size, setSize] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: null, y: null })
@@ -15,13 +25,11 @@ function TouchGameLevelOne() {
   const [gameOver, setGameOver] = useState(false)
 
   const endGame = () => {
-    console.log('fin jeu', endGame)
     setGameOver(true)
+    setTimeout(reset, 5000)
   }
 
-  function refreshPage() {
-    window.location.reload();
-  }
+
   const getDotBigger = useCallback(() => {
     const documentCenterX = window.innerWidth / 2
     const documentCenterY = window.innerHeight / 2
@@ -35,7 +43,6 @@ function TouchGameLevelOne() {
     const rayonMax = distance + BLACK_BOARD_SIZE / 2
     setSize(size + 80)
 
-    console.info(size, rayonMax * 2)
     if (size > rayonMax * 2) {
       endGame()
     }
@@ -70,7 +77,6 @@ function TouchGameLevelOne() {
         <div
           className="black-board"
           onMouseDown={initDot}
-
           ref={blackboard}
           style={{ width: BLACK_BOARD_SIZE }}
         >
@@ -86,12 +92,12 @@ function TouchGameLevelOne() {
           </div>
         </div>
       </div>
-      {gameOver ? <button type="button" onClick={refreshPage}>Reload</button> : null}
+      {gameOver ? <Button variant="outline-light" size="sm" type="button" onClick={reset} > Redémarrer</Button> : null}
       ({gameOver ?
-        <Countdown date={Date.now() + 10000} className="countdown" >
-          <Completionist />
+        <Countdown date={Date.now() + 5000} className="countdown" >
         </Countdown> : null}
       ),
+      
     </>
   )
 }

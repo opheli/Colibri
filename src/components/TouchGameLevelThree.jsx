@@ -4,7 +4,7 @@ import {Button} from 'react-bootstrap'
 import '../StyleTouchGame.css'
 
 
-function TouchGameLevelTwo() {
+function TouchGameLevelThree() {
 
   const reset = () => {
     setSize(0)
@@ -13,7 +13,7 @@ function TouchGameLevelTwo() {
     setGameOver(false)
   }
 
-  const BLACK_BOARD_SIZE = (window.innerWidth * 1.1)
+  const BLACK_BOARD_SIZE = (window.innerWidth * 1)
   const blackboard = useRef(null)
   const [size, setSize] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: null, y: null })
@@ -98,4 +98,4 @@ function TouchGameLevelTwo() {
   )
 }
 
-export default TouchGameLevelTwo
+export default TouchGameLevelThree

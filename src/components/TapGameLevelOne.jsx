@@ -4,7 +4,7 @@ import {Button} from 'react-bootstrap'
 import '../StyleTouchGame.css'
 
 
-function TouchGameLevelTwo() {
+function TapGameLevelOne() {
 
   const reset = () => {
     setSize(0)
@@ -13,7 +13,7 @@ function TouchGameLevelTwo() {
     setGameOver(false)
   }
 
-  const BLACK_BOARD_SIZE = (window.innerWidth * 1.1)
+  const BLACK_BOARD_SIZE = (window.innerWidth * 0.4)
   const blackboard = useRef(null)
   const [size, setSize] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: null, y: null })
@@ -34,13 +34,13 @@ function TouchGameLevelTwo() {
     const documentCenterXreferentialBackboad = documentCenterX - b.x
     const documentCenterYreferentialBackboad = documentCenterY - b.y
     setDcrb({ x: documentCenterXreferentialBackboad, y: documentCenterYreferentialBackboad })
-    const calculX = documentCenterXreferentialBackboad - mousePosition.x
-    const calculY = documentCenterYreferentialBackboad - mousePosition.y
-    const distance = Math.sqrt((calculX * calculX) + (calculY * calculY))
-    const rayonMax = distance + BLACK_BOARD_SIZE / 2
+   // const calculX = documentCenterXreferentialBackboad - mousePosition.x
+   // const calculY = documentCenterYreferentialBackboad - mousePosition.y
+    //const distance = Math.sqrt((calculX * calculX) + (calculY * calculY))
+   //const rayonMax = distance + BLACK_BOARD_SIZE / 2
     setSize(size + 80)
 
-    if (size > rayonMax * 2) {
+    if (size > BLACK_BOARD_SIZE) {
       endGame()
     }
   }, [setSize, size, endGame, mousePosition, BLACK_BOARD_SIZE])
@@ -81,8 +81,8 @@ function TouchGameLevelTwo() {
             className="dot"
             onMouseDown={() => { setMouseDown(true) }}
             style={{
-              top: mousePosition.y - size / 2,
-              left: mousePosition.x - size / 2,
+              top: dcrb.y - size / 2,
+              left: dcrb.x - size / 2,
               width: size,
               height: size,
             }}>
@@ -98,4 +98,4 @@ function TouchGameLevelTwo() {
   )
 }
 
-export default TouchGameLevelTwo
+export default TapGameLevelOne

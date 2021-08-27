@@ -28,7 +28,7 @@
   border-radius: 50%;
 }
 
-button{
+#restartbtn{
   position: fixed;
   top:10px;
   right:10px;

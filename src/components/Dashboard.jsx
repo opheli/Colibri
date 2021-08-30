@@ -106,9 +106,9 @@ function Dashboard() {
                                     historyData.map((data, index) => {
 
                                         return (
-                                            <td className="d-flex">
+                                            <td key={index} className="d-flex">
                                                 <div className="d-flex">
-                                                    <p key={index}>{data._id.day}/{data._id.month}/{data._id.year}</p>
+                                                    <p >{data._id.day}/{data._id.month}/{data._id.year}</p>
                                                     {data.histories.map((item, index) => {
                                                         if (item.status === 'FAILED') {
                                                             return <ul key={index}>

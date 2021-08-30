@@ -72,14 +72,6 @@ function TouchGameLevelOne () {
     }
   }, [reset])
 
-  const countdownRenderer = useCallback(({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      reset()
-      return null
-    } else {
-      return <div className="countdown">{seconds} secondes</div>
-    }
-  }, [reset])
 
   const logEvent = useCallback((event) => {
     console.info(event.target.getAttribute('id'))

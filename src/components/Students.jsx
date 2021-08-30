@@ -99,6 +99,17 @@ function ModalChooseLevel(props) {
                     {/* --------------ACCES JEU 1 NIVEAU 3-------------- */}
                     <Col><Button variant="outline-primary"><Link to={`/TouchGameLevelThree/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Touch N3</Link></Button></Col>
                 </Row>
+                <Row className="text-center mt-2">
+                    <Col><Button variant="outline-primary">
+                        <Link to={`/TapGameLevelOne/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Tap N1</Link>
+                    </Button></Col>
+                    <Col><Button variant="outline-primary" disabled>
+                        <Link to={`/TapGameLevelTwo/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Tap N2</Link>
+                    </Button></Col>
+                    <Col><Button variant="outline-primary" disabled>
+                        <Link to={`/TapGameLevelThree/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Tap N3</Link>
+                    </Button></Col>
+                </Row>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>

@@ -11,6 +11,7 @@ function TouchGameLevelThree() {
     setMousePosition({ x: null, y: null })
     setMouseDown(false)
     setGameOver(false)
+    setTimeOutId(null)
   }
 
   const BLACK_BOARD_SIZE = (window.innerWidth * 1)

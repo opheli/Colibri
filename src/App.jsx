@@ -3,6 +3,8 @@ import Home from './components/Home'
 import Students from './components/Students'
 import Dashboard from './components/Dashboard'
 import TouchGameLevelOne from './components/games/TouchGameLevelOne'
+import TouchGameLevelTwo from './components/games/TouchGameLevelTwo'
+import TouchGameLevelThree from './components/games/TouchGameLevelThree'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 
@@ -15,7 +17,9 @@ export default function App() {
           <Route exact path="/" component={Home} />
           <Route path="/students" component={Students} />
           <Route path="/dashboard/:id" component={Dashboard} />
-          <Route path="/TouchGameLevelOne" component={TouchGameLevelOne} />
+          <Route path="/TouchGameLevelOne/:id" component={TouchGameLevelOne} />
+          <Route path="/TouchGameLevelTwo/:id" component={TouchGameLevelTwo} />
+          <Route path="/TouchGameLevelThree/:id" component={TouchGameLevelThree} />
           
         </Switch>
     

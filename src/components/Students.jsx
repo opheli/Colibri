@@ -44,11 +44,12 @@ function Students() {
                                     <td><Link to={`/dashboard/${kid._id}`}> {clipboard}</Link></td>
                                     <td>
                                         <>
-                                            <Link variant="primary" to="" onClick={() => setModalShow(true)}>
+                                            <Link variant="primary" onClick={() => setModalShow(true)}>
                                                 {play}
                                             </Link>
 
                                             <ModalChooseLevel
+                                                to={kid._id}
                                                 show={modalShow}
                                                 onHide={() => setModalShow(false)}
                                             />
@@ -70,6 +71,7 @@ function Students() {
     )
 }
 
+
 //ModalLevel : choose Level Game
 function ModalChooseLevel(props) {
     return (
@@ -88,12 +90,14 @@ function ModalChooseLevel(props) {
                 <Row className="text-center">
                     {/* --------------ACCES JEU 1 NIVEAU 1-------------- */}
                     <Col><Button variant="outline-primary">
-                        <Link to="/TouchGameLevelOne" style={{ textDecoration: 'none', color:'black' }}>Niveau 1</Link>
+                        <Link to={`/TouchGameLevelOne/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Touch N1</Link>
                     </Button></Col>
                     {/* --------------ACCES JEU 1 NIVEAU 2-------------- */}
-                    <Col><Button variant="outline-primary" disabled>Niveau 2</Button></Col>
+                    <Col><Button variant="outline-primary">
+                        <Link to={`/TouchGameLevelTwo/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Touch N2</Link>
+                    </Button></Col>
                     {/* --------------ACCES JEU 1 NIVEAU 3-------------- */}
-                    <Col><Button variant="outline-primary" disabled>Niveau 3</Button></Col>
+                    <Col><Button variant="outline-primary"><Link to={`/TouchGameLevelThree/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Touch N3</Link></Button></Col>
                 </Row>
             </Modal.Body>
             <Modal.Footer>

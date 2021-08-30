@@ -7,6 +7,7 @@ import '../App.css'
 function Dashboard() {
     const history = useHistory()
     const params = useParams()
+
     //deleteModal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -19,15 +20,16 @@ function Dashboard() {
     //Data récupéré du fetch et stocké ici pour faire un map dessus
     const [historyData, setHistoryData] = useState([])
     console.log(historyData)
+
     //fetch History
     const getHistory = () => {
-        const url = (`/api/history?student=${params.id}`)
+        const url = (`/api/history/byDate?student=${params.id}`)
         fetch(url)
             .then(res => res.json())
             .then(data => setHistoryData(data.payload))
-        
+
     }
-    
+
     //récupération de l'historique et l'afficher en bas
     useEffect(() => {
         getHistory()
@@ -87,20 +89,20 @@ function Dashboard() {
                                     {
                                         historyData.map((data, index) => {
 
-                                            let date = new Date(data.created);
-                                            let dd = String(date.getDate()).padStart(2, '0');
-                                            let mm = String(date.getMonth() + 1).padStart(2, '0');
-                                            let yyyy = date.getFullYear();
-                                            date = dd + '/' + mm + '/' + yyyy;
+                                            // let date = new Date(data.created);
+                                            // let dd = String(date.getDate()).padStart(2, '0');
+                                            // let mm = String(date.getMonth() + 1).padStart(2, '0');
+                                            // let yyyy = date.getFullYear();
+                                            // date = dd + '/' + mm + '/' + yyyy;
 
-                                            return <p key={index}>{date}</p>
+                                            return <p key={index}>{data.day}/{data.month}/{data.year}</p>
 
                                         })
                                     }
 
                                 </th>
                                 <td className="">
-                                    {
+                                    {/* {
                                         historyData.map((data, index) => {
 
                                             if (data.status === 'FAILED') {
@@ -117,7 +119,7 @@ function Dashboard() {
                                                 </ul>
                                             }
                                         })
-                                    }
+                                    } */}
                                 </td>
                             </tr>
                         </tbody>

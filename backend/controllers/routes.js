@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const { Teacher, Student, Game, History } = require('../model/Schemas.js')
+const mongoose = require('mongoose')
 
 // ROUTE DISPLAY + ADD + DELETE STUDENTS
 router.route('/api/students')
@@ -90,7 +91,7 @@ router.route('/api/history/byDate')
             ]).exec()
             res.json({ success: true, payload: data })
         } catch (error) {
-            res.json({ success: false, payload: error })
+            res.json({ success: false, payload: error.message })
         }
     })
 

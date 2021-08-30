@@ -1,47 +1,29 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Countdown from 'react-countdown'
-import {Button} from 'react-bootstrap'
-import '../../styles/StyleTouchGame.css'
+import { Button } from 'react-bootstrap'
+import '../styles/StyleTouchGame.css'
 
+function TouchGameLevelOne () {
 
-function TouchGameLevelOne() {
-
-  const reset = () => {
-    setSize(0)
-    setMousePosition({ x: null, y: null })
-    setMouseDown(false)
-    setGameOver(false)
-  }
-
-  const BLACK_BOARD_SIZE = (window.innerWidth * 1.19)
+  const biggerScreenSide = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight
+  const BLACK_BOARD_SIZE = biggerScreenSide * 1.19
   const blackboard = useRef(null)
   const [size, setSize] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: null, y: null })
   const [dcrb, setDcrb] = useState({ x: null, y: null })
   const [mouseDown, setMouseDown] = useState(false)
   const [gameOver, setGameOver] = useState(false)
-  const [timeOutId, setTimeOutId] = useState()
 
-  const startAutomatically = useCallback(() => {
-    if (!timeOutId) {
-      const newTimeOutId = setTimeout(reset, 5000)
-      setTimeOutId(newTimeOutId)
-    }
-  }, [setTimeOutId, reset, timeOutId])
+  const reset = useCallback(() => {
+    setSize(0)
+    setMousePosition({ x: null, y: null })
+    setMouseDown(false)
+    setGameOver(false)
+  }, [setSize, setMousePosition, setMouseDown, setGameOver])
 
   const endGame = useCallback(() => {
     setGameOver(true)
-    startAutomatically(true)
-  }, [setGameOver, startAutomatically])
-
-  const stopStartAutomatically = useCallback(() => {
-    clearTimeout(timeOutId);
-  }, [clearTimeout, timeOutId])
-
-  const buttonStopTimeout = useCallback(() => {
-    reset()
-    stopStartAutomatically()
-  }, [reset, stopStartAutomatically])
+  }, [setGameOver])
 
   const getDotBigger = useCallback(() => {
     const documentCenterX = window.innerWidth / 2
@@ -82,19 +64,36 @@ function TouchGameLevelOne() {
     return () => clearInterval(interval)
   }, [mouseDown, getDotBigger])
 
+  const countdownRenderer = useCallback(({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      reset()
+      return null
+    } else {
+      return <div className="countdown">{seconds} secondes</div>
+    }
+  }, [reset])
+
+  const logEvent = useCallback((event) => {
+    console.info(event.target.getAttribute('id'))
+  }, [])
 
   return (
     <>
       <div className="yellow-board"
-        onMouseUp={() => setMouseDown(false)}>
+           onMouseUp={() => setMouseDown(false)}
+           onMouseDown={logEvent}
+           id="yellow"
+      >
         <div
           className="black-board"
           onMouseDown={initDot}
           ref={blackboard}
           style={{ width: BLACK_BOARD_SIZE }}
+          id="black"
         >
           <div
             className="dot"
+            id="blue"
             onMouseDown={() => { setMouseDown(true) }}
             style={{
               top: mousePosition.y - size / 2,
@@ -105,12 +104,19 @@ function TouchGameLevelOne() {
           </div>
         </div>
       </div>
-      {gameOver ? <Button id="restartbtn" variant="outline-light" size="sm" type="button" onClick={buttonStopTimeout} > Redémarrer</Button> : null}
-      ({gameOver ?
-        <Countdown date={Date.now() + 5000} className="countdown" >
-        </Countdown> : null}
-      ),
-      
+      {gameOver && <>
+        <Button
+          id="restartbtn"
+          variant="outline-light"
+          size="sm"
+          type="button"
+          onClick={reset}
+        >
+          Redémarrer
+        </Button>
+        <Countdown date={Date.now() + 5000} renderer={countdownRenderer}/>
+      </>}
+
     </>
   )
 }

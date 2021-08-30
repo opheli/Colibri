@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { Teacher, Student, Game, History } = require('../model/Schemas.js')
+const { Student, History } = require('../model/Schemas.js')
 const mongoose = require('mongoose')
 
 // ROUTE DISPLAY + ADD + DELETE STUDENTS
@@ -12,7 +12,7 @@ router.route('/api/students')
             console.log(students_list)
             res.json(students_list)
         } catch (error) {
-            res.json({ success: false, payload: error })
+            res.json({ success: false, payload: error.message })
         }
     })
     .post(async (req, res) => {
@@ -25,7 +25,7 @@ router.route('/api/students')
             if (error.code === 11000) {
                 res.json({ success: false, payload: 'Student exists' })
             } else {
-                res.json({ success: false, payload: error })
+                res.json({ success: false, payload: error.message })
             }
         }
     })
@@ -42,6 +42,17 @@ router.delete('/api/students/:id', async (req, res) => {
     }
 })
 
+//Spécial Dashbord.jsx : récupère les noms des enfants
+router.get('/api/students/:id', async (req, res) => {
+    try {
+        const students_list = await Student.findById(req.params.id)
+        console.log(students_list)
+        res.json(students_list)
+    } catch (error) {
+        res.json({ success: false, payload: error.message })
+    }
+})
+
 // POST HISTORY AND GET HISTORY
 router.route('/api/history')
     .get(async (req, res) => {
@@ -51,7 +62,7 @@ router.route('/api/history')
             const data = await History.find(req.query).populate('student').exec()
             res.json({ success: true, payload: data })
         } catch (error) {
-            res.json({ success: false, payload: error })
+            res.json({ success: false, payload: error.message })
         }
     })
     .post(async (req, res) => {
@@ -61,7 +72,7 @@ router.route('/api/history')
             const gameData = await newGameData.save();
             res.json({ success: true, payload: `${gameData} is added to Histories` })
         } catch (error) {
-            res.json({ success: false, payload: error })
+            res.json({ success: false, payload: error.message })
         }
     })
 

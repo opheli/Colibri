@@ -9,6 +9,8 @@ function Dashboard() {
     const params = useParams()
 
     //deleteModal
+    const [getName, setGetName] = useState()
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -20,7 +22,6 @@ function Dashboard() {
     //Data récupéré du fetch et stocké ici pour faire un map dessus
     const [historyData, setHistoryData] = useState([])
     console.log(historyData)
-
     //fetch History
     const getHistory = () => {
         const url = (`/api/history/byDate?student=${params.id}`)
@@ -33,8 +34,22 @@ function Dashboard() {
     //récupération de l'historique et l'afficher en bas
     useEffect(() => {
         getHistory()
+        getStudentName()
     }, [])
     // fonction suppression de l'élève sélectionné
+
+    const getStudentName = useCallback(
+        () => {
+            const url = `/api/students/${params.id}`
+            fetch(url, {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'GET'
+            })
+                .then(res => res.json())
+                .then(data => setGetName(data))
+        }, [params])
+
+
     const deleteStudent = useCallback(
         () => {
             const url = `/api/students/${params.id}`
@@ -73,9 +88,8 @@ function Dashboard() {
             {/* TABLEAU DE BORD */}
             <Row className="mt-5">
                 <Col> <h5>Tableau de bord</h5> </Col>
-                {/* {
-                    historyData[0]?.student.name
-                } */}
+                <Col>{getName?.name}</Col>
+
             </Row>
             <hr></hr>
 
@@ -86,41 +100,35 @@ function Dashboard() {
                             <tr>
                                 <th scope="row">
 
-                                    {
-                                        historyData.map((data, index) => {
-
-                                            // let date = new Date(data.created);
-                                            // let dd = String(date.getDate()).padStart(2, '0');
-                                            // let mm = String(date.getMonth() + 1).padStart(2, '0');
-                                            // let yyyy = date.getFullYear();
-                                            // date = dd + '/' + mm + '/' + yyyy;
-
-                                            return <p key={index}>{data.day}/{data.month}/{data.year}</p>
-
-                                        })
-                                    }
-
                                 </th>
-                                <td className="">
-                                    {/* {
-                                        historyData.map((data, index) => {
 
-                                            if (data.status === 'FAILED') {
-                                                return <ul key={index}>
-                                                    <li id="failed"><span>{data.status}</span></li></ul>
+                                {
+                                    historyData.map((data, index) => {
 
-                                            } else if (data.status === 'PARTIAL') {
-                                                return <ul key={index}>
-                                                    <li id="partial"><span>{data.status}</span></li></ul>
+                                        return (
+                                            <td className="d-flex">
+                                                <div className="d-flex">
+                                                    <p key={index}>{data._id.day}/{data._id.month}/{data._id.year}</p>
+                                                    {data.histories.map((item, index) => {
+                                                        if (item.status === 'FAILED') {
+                                                            return <ul key={index}>
+                                                                <li id="failed"><span>{item.status}</span></li></ul>
 
-                                            } else {
-                                                return <ul key={index}>
-                                                    <li id="success"><span>{data.status}</span></li>
-                                                </ul>
-                                            }
-                                        })
-                                    } */}
-                                </td>
+                                                        } else if (item.status === 'PARTIAL') {
+                                                            return <ul key={index}>
+                                                                <li id="partial"><span>{item.status}</span></li></ul>
+
+                                                        } else {
+                                                            return <ul key={index}>
+                                                                <li id="success"><span>{item.status}</span></li>
+                                                            </ul>
+                                                        }
+                                                    })}
+                                                </div>
+                                            </td>
+                                        )
+                                    })
+                                }
                             </tr>
                         </tbody>
                     </table>
@@ -155,3 +163,10 @@ function DeleteModal(props) {
 
 
 export default Dashboard
+
+// convertir l'heure
+// let date = new Date(data.created);
+// let dd = String(date.getDate()).padStart(2, '0');
+// let mm = String(date.getMonth() + 1).padStart(2, '0');
+// let yyyy = date.getFullYear();
+// date = dd + '/' + mm + '/' + yyyy;

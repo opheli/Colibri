@@ -1,17 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// LOGIN DE LA CLASSE et afficher les élèves rattachés à cette classe
-const teacherSchema = Schema({
-    teacher: String,
-    classroom: String,
-    password: String,
-    created: {
-        type: Date,
-        default: Date.now
-    }
-})
-
 // LES NOMS ET LES NIVEAUX DE JEU
 const gameSchema = Schema({
     name: String,
@@ -24,18 +13,18 @@ const gameSchema = Schema({
 
 // MODEL HISTORIQUE JEU PAR ENFANT
 const historySchema = Schema({
-    game_id: Object,
-    level: Number,
-    student: {
+    game_id: Object, // le jeu auquel appartient l'historique
+    level: Number, // le level du jeu joué
+    student: { // l'élève concerné
         type: Schema.Types.ObjectId,
         ref: 'student'
     },
-    duration: Number,
-    status: {
+    duration: Number, // le temps de jeu
+    status: { // le score
         type: String,
         enum: ['SUCCESS', 'FAILED', 'PARTIAL']
     },
-    created: {
+    created: { // la date de création de l'historique
         type: Date,
         default: Date.now
     }
@@ -51,10 +40,9 @@ const studentSchema = Schema({
 })
 
 
-const Teacher = mongoose.model("teacher", teacherSchema)
 const Student = mongoose.model('student', studentSchema);
 const Game = mongoose.model("game", gameSchema)
 const History = mongoose.model("history", historySchema)
 
 
-module.exports = { Teacher, Student, Game, History }
+module.exports = { Student, Game, History }

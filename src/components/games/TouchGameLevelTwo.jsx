@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Countdown from 'react-countdown'
 import { Button } from 'react-bootstrap'
-import '../../styles/StyleTouchGame.css'
+import '../styles/StyleTouchGame.css'
 
 
 function TouchGameLevelTwo() {

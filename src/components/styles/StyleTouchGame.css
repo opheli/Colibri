@@ -35,6 +35,7 @@
 }
 
 .countdown{
+  display: block;
   position: fixed;
   display: block;
   top:10px;

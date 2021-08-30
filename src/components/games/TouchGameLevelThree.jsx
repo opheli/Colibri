@@ -1,13 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Countdown from 'react-countdown'
-import {Button} from 'react-bootstrap'
-import '../StyleTouchGame.css'
+import { Button } from 'react-bootstrap'
+import '../../styles/StyleTouchGame.css'
 
-// document.querySelector('Button').addEventListener('click', 
-//   e => console.log('réussit',e)
-// );
 
-function TouchGameLevelOne() {
+function TouchGameLevelThree() {
 
   const reset = () => {
     setSize(0)
@@ -16,7 +13,7 @@ function TouchGameLevelOne() {
     setGameOver(false)
   }
 
-  const BLACK_BOARD_SIZE = (window.innerWidth * 1.19)
+  const BLACK_BOARD_SIZE = (window.innerWidth * 1)
   const blackboard = useRef(null)
   const [size, setSize] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: null, y: null })
@@ -34,12 +31,12 @@ function TouchGameLevelOne() {
 
   const endGame = useCallback(() => {
     setGameOver(true)
-    startAutomatically(true)
+    startAutomatically()
   }, [setGameOver, startAutomatically])
 
   const stopStartAutomatically = useCallback(() => {
     clearTimeout(timeOutId);
-  }, [clearTimeout, timeOutId])
+  }, [timeOutId])
 
   const buttonStopTimeout = useCallback(() => {
     reset()
@@ -108,14 +105,16 @@ function TouchGameLevelOne() {
           </div>
         </div>
       </div>
-      {gameOver ? <Button id="restartbtn" variant="outline-light" size="sm" type="button" onClick={buttonStopTimeout} > Redémarrer</Button> : null}
+      {gameOver ? <Button
+        id="restartbtn"
+        variant="outline-light" size="sm" type="button" onClick={buttonStopTimeout}
+      >Redémarrer 2</Button> : null}
       ({gameOver ?
         <Countdown date={Date.now() + 5000} className="countdown" >
         </Countdown> : null}
       ),
-      
     </>
   )
 }
 
-export default TouchGameLevelOne
+export default TouchGameLevelThree

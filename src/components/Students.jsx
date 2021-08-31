@@ -44,7 +44,7 @@ function Students() {
                                     <td><Link to={`/dashboard/${kid._id}`}> {clipboard}</Link></td>
                                     <td>
                                         <>
-                                            <Link variant="primary" onClick={() => setModalShow(true)}>
+                                            <Link variant="primary" to="/students" onClick={() => setModalShow(true)}>
                                                 {play}
                                             </Link>
 
@@ -103,10 +103,10 @@ function ModalChooseLevel(props) {
                     <Col><Button variant="outline-primary">
                         <Link to={`/TapGameLevelOne/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Tap N1</Link>
                     </Button></Col>
-                    <Col><Button variant="outline-primary" disabled>
+                    <Col><Button variant="outline-primary">
                         <Link to={`/TapGameLevelTwo/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Tap N2</Link>
                     </Button></Col>
-                    <Col><Button variant="outline-primary" disabled>
+                    <Col><Button variant="outline-primary">
                         <Link to={`/TapGameLevelThree/${props.to}`} style={{ textDecoration: 'none', color: 'black' }}>Tap N3</Link>
                     </Button></Col>
                 </Row>

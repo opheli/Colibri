@@ -6,6 +6,10 @@ import TouchGameLevelOne from './components/games/TouchGameLevelOne'
 import TouchGameLevelTwo from './components/games/TouchGameLevelTwo'
 import TouchGameLevelThree from './components/games/TouchGameLevelThree'
 import TapGameLevelOne from './components/games/TapGameLevelOne'
+import TapGameLevelTwo from './components/games/TapGameLevelTwo'
+import TapGameLevelThree from './components/games/TapGameLevelThree'
+
+
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 
@@ -24,6 +28,8 @@ export default function App() {
         <Route path="/TouchGameLevelThree/:id" component={TouchGameLevelThree} />
         {/* Routes to TapGame */}
         <Route path="/TapGameLevelOne/:id" component={TapGameLevelOne} />
+        <Route path="/TapGameLevelTwo/:id" component={TapGameLevelTwo} />
+        <Route path="/TapGameLevelThree/:id" component={TapGameLevelThree} />
 
       </Switch>
 

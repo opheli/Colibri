@@ -61,7 +61,7 @@ function TapGameLevelOne() {
     const calculY = documentCenterYreferentialBackboad - mousePosition.y
     const distance = Math.sqrt((calculX * calculX) + (calculY * calculY))
     const rayonMax = distance + BLACK_BOARD_SIZE / 2
-    setSize(BLACK_BOARD_SIZE * nbrClick / 3)
+    setSize(BLACK_BOARD_SIZE * nbrClick / 5)
 
   }, [setSize, size, endGame, mousePosition, BLACK_BOARD_SIZE])
 

@@ -21,7 +21,7 @@ function Dashboard() {
     const cancel = () => setShow(false);
     //Data récupéré du fetch et stocké ici pour faire un map dessus
     const [historyData, setHistoryData] = useState([])
-    console.log(historyData)
+
     //fetch History
     const getHistory = () => {
         const url = (`/api/history/byDate?student=${params.id}`)
@@ -53,7 +53,6 @@ function Dashboard() {
     const deleteStudent = useCallback(
         () => {
             const url = `/api/students/${params.id}`
-            console.log(params.id)
             fetch(url, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'DELETE'
@@ -88,8 +87,9 @@ function Dashboard() {
             {/* TABLEAU DE BORD */}
             <Row className="mt-5">
                 <Col> <h5>Tableau de bord</h5> </Col>
-                <Col>{getName?.name}</Col>
-
+            </Row>
+            <Row>
+            <Col>{getName?.name}</Col>
             </Row>
             <hr></hr>
 
@@ -106,9 +106,9 @@ function Dashboard() {
                                     historyData.map((data, index) => {
 
                                         return (
-                                            <td className="d-flex">
+                                            <td key={index} className="d-flex">
                                                 <div className="d-flex">
-                                                    <p key={index}>{data._id.day}/{data._id.month}/{data._id.year}</p>
+                                                    <p>{data._id.day}/{data._id.month}/{data._id.year}</p>
                                                     {data.histories.map((item, index) => {
                                                         if (item.status === 'FAILED') {
                                                             return <ul key={index}>
